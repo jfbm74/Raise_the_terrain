@@ -6,18 +6,18 @@ int main(int argc, char **argv)
     int **grid_y;
     int rows, cols = 0;
     SDL_Instance instance;
+    SDL_Event e;
+    bool quit = false;
 
+    /* Check if Altitude File is added by main argument*/
     if (argc != 2)
     {
         printf("Error: Missing altitudes file\n");
         return (EXIT_FAILURE);
     }
-
+    /* initialize a window and canvas */
     if (init_instance(&instance) != 0)
         return (1);
-
-    bool quit = false;
-    SDL_Event e;
 
     while (!quit)
     {
@@ -25,7 +25,7 @@ int main(int argc, char **argv)
         while (SDL_PollEvent(&e) != 0)
         {
             //User requests quit
-            if (e.type == SDL_QUIT)
+            if (e.type == SDL_QUIT || (e.key.keysym.sym == SDLK_ESCAPE))
             {
                 printf("Bye!!!\n");
                 quit = true;
